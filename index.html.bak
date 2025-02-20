@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2196f3">
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script>
+        // Service Worker Kaydı
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker başarıyla kaydedildi:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker kaydı başarısız:', error);
+                    });
+            });
+        }
+
+        // Çevrimdışı/Çevrimiçi Durumu
+        window.addEventListener('online', function() {
+            document.body.classList.remove('offline');
+            // Çevrimiçi olduğunda sayfayı yenile
+            window.location.reload();
+        });
+
+        window.addEventListener('offline', function() {
+            document.body.classList.add('offline');
+            // Kullanıcıyı bilgilendir
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('Weather App', {
+                    body: 'Çevrimdışı moda geçildi. Bazı özellikler kullanılamayabilir.',
+                    icon: '/images/icons/icon-192x192.png'
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="lightning-left"></div>
+        <div class="lightning-right"></div>
+        <div class="rain-container">
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+            <div class="rain"></div>
+        </div>
+
+        {{ ... }}
+    <!-- Rain Container -->
+    <div class="rain-container"></div>
+{{ ... }}
+
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="app-title">
+                    <h1>Weather App</h1>
+                    <div class="author">by Bostan</div>
+                </div>
+                <div class="header-controls">
+                    <button id="locationBtn" class="header-button">
+                        <i class="material-icons">location_on</i>
+                        Location
+                    </button>
+                    <button id="notificationBtn" class="header-button">
+                        <i class="material-icons">notifications</i>
+                        Alerts
+                    </button>
+                    <button id="cameraBtn" class="header-button">
+                        <i class="material-icons">photo_camera</i>
+                        Camera
+                    </button>
+                    <button id="rainToggle" class="header-button">
+                        <i class="fas fa-cloud-rain"></i>
+                        Rain
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Weather View -->
+        <div id="weatherView" class="view active">
+            <div class="weather-card">
+                <div class="weather-location">Warsaw, Poland</div>
+                <div class="weather-temp">23°C</div>
+                <div class="weather-icon partly-cloudy"></div>
+                <div class="weather-desc">Partly Cloudy</div>
+            </div>
+        </div>
+
+        <!-- Camera View -->
+        <div id="cameraView" class="view">
+            <header>
+                <div class="header-content">
+                    <button id="backFromCamera" class="icon-button">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <h1>Camera</h1>
+                </div>
+            </header>
+            <div class="camera-content">
+                <video id="cameraPreview" autoplay playsinline></video>
+                <div id="photoPreview">
+                    <img id="capturedPhoto" alt="Captured photo">
+                </div>
+                <div class="camera-controls">
+                    <button id="captureBtn" class="camera-btn">
+                        <i class="material-icons">camera</i>
+                    </button>
+                </div>
+                <div class="photo-controls">
+                    <button id="deletePhotoBtn" class="camera-btn">
+                        <i class="material-icons">delete</i>
+                    </button>
+                    <button id="savePhotoBtn" class="camera-btn">
+                        <i class="material-icons">save</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History View -->
+        <div id="historyView" class="view">
+            <header>
+                <div class="header-content">
+                    <button id="backFromHistory" class="icon-button">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <h1>Weather History</h1>
+                </div>
+            </header>
+            <div class="history-content">
+                <!-- History items will be added here dynamically -->
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button id="weatherNavBtn" class="nav-button active">
+                <i class="material-icons">wb_sunny</i>
+                Weather
+            </button>
+            <button id="cameraNavBtn" class="nav-button">
+                <i class="material-icons">camera_alt</i>
+                Camera
+            </button>
+            <button id="historyNavBtn" class="nav-button">
+                <i class="material-icons">history</i>
+                History
+            </button>
+        </nav>
+
+        <script src="js/weather.js"></script>
+        <script src="js/camera.js"></script>
+        <script src="js/history.js"></script>
+    </div>
+</body>
+</html>
