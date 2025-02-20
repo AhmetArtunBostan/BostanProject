@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <link rel="manifest" href="/BostanProject/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2196f3">
-    <link rel="apple-touch-icon" href="/BostanProject/images/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="/BostanProject/css/style.css">
-    <link rel="stylesheet" href="/BostanProject/css/animations.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', async () => {
-                try {
-                    const registration = await navigator.serviceWorker.register('/BostanProject/service-worker.js', {
-                        scope: '/BostanProject/'
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered');
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
                     });
-                    console.log('Service Worker registered successfully:', registration);
-                } catch (error) {
-                    console.error('Service Worker registration failed:', error);
-                }
             });
 
         window.addEventListener('online', function() {
@@ -37,7 +36,7 @@
             if ('Notification' in window && Notification.permission === 'granted') {
                 new Notification('Weather App', {
                     body: 'App is now offline. Some features may be unavailable.',
-                    icon: '/BostanProject/images/icons/icon-192x192.png'
+                    icon: 'images/icons/icon-192x192.png'
                 });
             }
         });
@@ -141,6 +140,6 @@
         </nav>
     </div>
     
-    <script src="/BostanProject/js/weather.js"></script>
+    <script src="js/weather.js"></script>
 </body>
 </html>
