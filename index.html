@@ -15,30 +15,35 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script>
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registered');
-                    })
-                    .catch(error => {
-                        console.log('Service Worker registration failed:', error);
-                    });
+                navigator.serviceWorker.register('/BostanProject/service-worker.js', {
+                    scope: '/BostanProject/'
+                })
+                .then(registration => {
+                    console.log('Service Worker registered successfully:', registration);
+                })
+                .catch(error => {
+                    console.error('Service Worker registration failed:', error);
+                });
             });
+        }
 
-        window.addEventListener('online', function() {
-            document.body.classList.remove('offline');
-            window.location.reload();
-        });
-
-        window.addEventListener('offline', function() {
+        // Offline/Online Event Handlers
+        window.addEventListener('offline', () => {
             document.body.classList.add('offline');
             if ('Notification' in window && Notification.permission === 'granted') {
                 new Notification('Weather App', {
                     body: 'App is now offline. Some features may be unavailable.',
-                    icon: 'images/icons/icon-192x192.png'
+                    icon: '/BostanProject/images/icons/icon-192x192.png'
                 });
             }
+        });
+
+        window.addEventListener('online', () => {
+            document.body.classList.remove('offline');
+            window.location.reload();
         });
     </script>
 </head>
