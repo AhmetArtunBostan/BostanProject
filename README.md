@@ -4,7 +4,7 @@ A modern Progressive Web App (PWA) that displays weather information for Warsaw,
 
 ## Features
 
-- 🌤️ Real-time weather display for Warsaw
+- 🌤️ Weather display for Warsaw
 - 📸 Camera integration for weather photos
 - 📱 PWA support for offline functionality
 - 📍 Location services
