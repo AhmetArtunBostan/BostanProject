@@ -1,18 +1,18 @@
 const CACHE_NAME = 'weather-app-v1';
 const STATIC_CACHE = [
-    '.',
-    './index.html',
-    './css/style.css',
-    './css/animations.css',
-    './js/weather.js',
-    './images/icons/icon-72x72.png',
-    './images/icons/icon-96x96.png',
-    './images/icons/icon-128x128.png',
-    './images/icons/icon-144x144.png',
-    './images/icons/icon-152x152.png',
-    './images/icons/icon-192x192.png',
-    './images/icons/icon-384x384.png',
-    './images/icons/icon-512x512.png'
+    '/BostanProject/',
+    '/BostanProject/index.html',
+    '/BostanProject/css/style.css',
+    '/BostanProject/css/animations.css',
+    '/BostanProject/js/weather.js',
+    '/BostanProject/images/icons/icon-72x72.png',
+    '/BostanProject/images/icons/icon-96x96.png',
+    '/BostanProject/images/icons/icon-128x128.png',
+    '/BostanProject/images/icons/icon-144x144.png',
+    '/BostanProject/images/icons/icon-152x152.png',
+    '/BostanProject/images/icons/icon-192x192.png',
+    '/BostanProject/images/icons/icon-384x384.png',
+    '/BostanProject/images/icons/icon-512x512.png'
 ];
 
 // Install Service Worker
@@ -72,10 +72,10 @@ self.addEventListener('fetch', event => {
                     .catch(() => {
                         // Return a fallback for image requests
                         if (event.request.url.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
-                            return caches.match('./images/icons/icon-72x72.png');
+                            return caches.match('/BostanProject/images/icons/icon-72x72.png');
                         }
                         // Return the offline page for other requests
-                        return caches.match('./offline.html');
+                        return caches.match('/BostanProject/offline.html');
                     });
             })
     );
