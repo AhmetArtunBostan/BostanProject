@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offline - Weather App</title>
+    <link rel="stylesheet" href="./css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,5 +61,11 @@
         <p>İnternet bağlantınız yok. Bazı özellikler kullanılamayabilir.</p>
         <button class="retry-button" onclick="window.location.reload()">Yeniden Dene</button>
     </div>
+    <script>
+        // Check if we're back online
+        window.addEventListener('online', function() {
+            window.location.reload();
+        });
+    </script>
 </body>
 </html>
